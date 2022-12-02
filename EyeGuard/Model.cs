@@ -78,6 +78,8 @@
         /// 窗体初始位置
         /// </summary>
         public Position InitialPosition { set; get; }
+        public int Top { set; get; }
+        public int Left { set; get; }
     }
 
     /// <summary>
@@ -118,8 +120,8 @@
         /// <summary>
         /// 设置窗体初始位置
         /// </summary>
-        public int X, Y = 0;
-        public Position(int x, int y)
+        public double X, Y = 0;
+        public Position(double x, double y)
         {
             X = x;
             Y = y;

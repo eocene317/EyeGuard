@@ -50,6 +50,8 @@ namespace EyeGuard
             md.Shutdown = new TurnOffTime {Branch= Data["ShutdownPoints"],Time= Data["ShutdownTime"] };
             md.IsIntelligent = Data["IsIntelligent"];
             md.Shutdown.ShutdownMode = (TurnOffTime.shutdown_mode)Data["ShutdownMode"];
+            md.Top = Data["Top"];
+            md.Left = Data["Left"];
             return md;
         }
 
@@ -69,6 +71,8 @@ namespace EyeGuard
             Data["Unlock"] = md.Unlock;
             Data["IsIntelligent"] = md.IsIntelligent;
             Data["ShutdownMode"] = (int)md.Shutdown.ShutdownMode;
+            Data["Top"] = md.Top;
+            Data["Left"] = md.Left;
             Serialize();
         }
 
@@ -90,6 +94,8 @@ namespace EyeGuard
             string Unlock = ConfigHelper.GetConfig("Unlock");
             string IsIntelligent = ConfigHelper.GetConfig("IsIntelligent");
             string ShutdownMode = ConfigHelper.GetConfig("ShutdownMode");
+            string Top = ConfigHelper.GetConfig("Top");
+            string Left = ConfigHelper.GetConfig("Left");
 
 
             Data.Add("Work", Convert.ToInt32(Work));
@@ -102,6 +108,8 @@ namespace EyeGuard
             Data.Add("Unlock", Convert.ToInt32(Unlock));
             Data.Add("IsIntelligent", Convert.ToInt32(IsIntelligent));
             Data.Add("ShutdownMode", Convert.ToInt32(ShutdownMode));
+            Data.Add("Top", Convert.ToInt32(Top));
+            Data.Add("Left", Convert.ToInt32(Left));
 
         }
 
@@ -121,6 +129,8 @@ namespace EyeGuard
             ConfigHelper.SetConfig("Unlock", Data["Unlock"].ToString());
             ConfigHelper.SetConfig("IsIntelligent", Data["IsIntelligent"].ToString());
             ConfigHelper.SetConfig("ShutdownMode", Data["ShutdownMode"].ToString());
+            ConfigHelper.SetConfig("Top", Data["Top"].ToString());
+            ConfigHelper.SetConfig("Left", Data["Left"].ToString());
         }
     }
     

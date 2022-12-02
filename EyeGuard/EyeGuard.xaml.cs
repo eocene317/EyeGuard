@@ -342,8 +342,9 @@ namespace EyeGuard
         private void RestoreLocation()
         {
             double ScreenWidth = System.Windows.SystemParameters.PrimaryScreenWidth;//WPF
-            this.Top = 90;
-            this.Left = ScreenWidth - 250;
+            this.Top = md.Top;
+            this.Left = md.Left;
+            Console.WriteLine(this.Top);
             this.Visibility = Visibility.Visible;
         }
 
@@ -355,11 +356,10 @@ namespace EyeGuard
         {
             InitializeComponent();
             SystemEvents.SessionSwitch += SystemEvents_SessionSwitch;
-            RestoreLocation();
             //隐藏控件
             initialTray();
             md = bll.Initialization();
-
+            RestoreLocation();
             DateTime d2 = Convert.ToDateTime(DateTime.Now.ToShortDateString().ToString());
             DateTime d4 = Convert.ToDateTime(string.Format("{0}-{1}-{2}", d2.Year, d2.Month, d2.Day));
             //执行时间为1秒一次
@@ -617,7 +617,7 @@ namespace EyeGuard
                         {
                             if (Tips.Function == false)
                             {
-                                new BLL.MP3Help($@"{AppDomain.CurrentDomain.BaseDirectory}Resources\MP3\BeforeShutdown.mp3").Play();
+                                //new BLL.MP3Help($@"{AppDomain.CurrentDomain.BaseDirectory}Resources\MP3\BeforeShutdown.mp3").Play();
                                 Tips tp = new Tips("当前时间为：" + DateTime.Now.ToLongTimeString().ToString() + "  距离关机还有1分钟，请您注意保存好数据信息~");
                                 tp.Show();
                             }
@@ -629,7 +629,7 @@ namespace EyeGuard
                         {
                             if (Tips.Function == false)
                             {
-                                new BLL.MP3Help($@"{AppDomain.CurrentDomain.BaseDirectory}Resources\MP3\BeforeShutdown.mp3").Play();
+                                //new BLL.MP3Help($@"{AppDomain.CurrentDomain.BaseDirectory}Resources\MP3\BeforeShutdown.mp3").Play();
                                 Tips tp = new Tips("当前时间为：" + DateTime.Now.ToLongTimeString().ToString() + "  距离关机还有1分钟，请您注意保存好数据信息~");
                                 tp.Show();
                             }
@@ -643,7 +643,7 @@ namespace EyeGuard
                     {
                         if (Tips.Function == false)
                         {
-                            new BLL.MP3Help($@"{AppDomain.CurrentDomain.BaseDirectory}Resources\MP3\BeforeShutdown.mp3").Play();
+                            //new BLL.MP3Help($@"{AppDomain.CurrentDomain.BaseDirectory}Resources\MP3\BeforeShutdown.mp3").Play();
                             Tips tp = new Tips("当前时间为：" + DateTime.Now.ToLongTimeString().ToString() + "  距离关机还有1分钟，请您注意保存好数据信息~");
                             tp.Show();
                         }
@@ -681,7 +681,7 @@ namespace EyeGuard
             //休息前的提醒 游戏模式下不进行提醒
             if ((md.Work - 1) * 60 == Count)
             {
-                new BLL.MP3Help($@"{AppDomain.CurrentDomain.BaseDirectory}Resources\MP3\BeforeRest.mp3").Play();
+                //new BLL.MP3Help($@"{AppDomain.CurrentDomain.BaseDirectory}Resources\MP3\BeforeRest.mp3").Play();
                 if ((int)md.TimerMode == 1&& bll.FullScreen())
                 {
                     return;
@@ -696,7 +696,7 @@ namespace EyeGuard
             //到达休息时间
             if (md.Work * 60 == Count)
             {
-                new BLL.MP3Help($@"{AppDomain.CurrentDomain.BaseDirectory}Resources\MP3\Resting.mp3").Play();
+                //new BLL.MP3Help($@"{AppDomain.CurrentDomain.BaseDirectory}Resources\MP3\Resting.mp3").Play();
 
                 if (Bll.IsAudioPlaying())
                 {
@@ -752,7 +752,7 @@ namespace EyeGuard
         /// <param name="e"></param>
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            new BLL.MP3Help($@"{AppDomain.CurrentDomain.BaseDirectory}Resources\MP3\Firing.mp3").Play();
+            //new BLL.MP3Help($@"{AppDomain.CurrentDomain.BaseDirectory}Resources\MP3\Firing.mp3").Play();
             md = bll.Initialization();
             if (md.Display == 0)
             {
@@ -767,6 +767,11 @@ namespace EyeGuard
             if (e.LeftButton == MouseButtonState.Pressed)
             {
                 this.DragMove();
+                md.Top = (int)this.Top;
+                md.Left = (int)this.Left;
+                Dal dl = new Dal();
+                dl.SetData(md);
+                //this.Left += 10;
             }
         }
     }
